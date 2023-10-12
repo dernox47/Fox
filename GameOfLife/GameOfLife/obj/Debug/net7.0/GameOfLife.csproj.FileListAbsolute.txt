@@ -1,0 +1,14 @@
+D:\úgykbminden\GitHub\Fox\GameOfLife\GameOfLife\obj\Debug\net7.0\GameOfLife.GeneratedMSBuildEditorConfig.editorconfig
+D:\úgykbminden\GitHub\Fox\GameOfLife\GameOfLife\obj\Debug\net7.0\GameOfLife.AssemblyInfoInputs.cache
+D:\úgykbminden\GitHub\Fox\GameOfLife\GameOfLife\obj\Debug\net7.0\GameOfLife.AssemblyInfo.cs
+D:\úgykbminden\GitHub\Fox\GameOfLife\GameOfLife\obj\Debug\net7.0\GameOfLife.csproj.CoreCompileInputs.cache
+D:\úgykbminden\GitHub\Fox\GameOfLife\GameOfLife\bin\Debug\net7.0\GameOfLife.exe
+D:\úgykbminden\GitHub\Fox\GameOfLife\GameOfLife\bin\Debug\net7.0\GameOfLife.deps.json
+D:\úgykbminden\GitHub\Fox\GameOfLife\GameOfLife\bin\Debug\net7.0\GameOfLife.runtimeconfig.json
+D:\úgykbminden\GitHub\Fox\GameOfLife\GameOfLife\bin\Debug\net7.0\GameOfLife.dll
+D:\úgykbminden\GitHub\Fox\GameOfLife\GameOfLife\bin\Debug\net7.0\GameOfLife.pdb
+D:\úgykbminden\GitHub\Fox\GameOfLife\GameOfLife\obj\Debug\net7.0\GameOfLife.dll
+D:\úgykbminden\GitHub\Fox\GameOfLife\GameOfLife\obj\Debug\net7.0\refint\GameOfLife.dll
+D:\úgykbminden\GitHub\Fox\GameOfLife\GameOfLife\obj\Debug\net7.0\GameOfLife.pdb
+D:\úgykbminden\GitHub\Fox\GameOfLife\GameOfLife\obj\Debug\net7.0\GameOfLife.genruntimeconfig.cache
+D:\úgykbminden\GitHub\Fox\GameOfLife\GameOfLife\obj\Debug\net7.0\ref\GameOfLife.dll
