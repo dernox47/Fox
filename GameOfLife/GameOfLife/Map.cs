@@ -40,7 +40,8 @@ namespace GameOfLife
                 }
                 Console.WriteLine();
             }
-            
         }
+
+
     }
 }
