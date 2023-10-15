@@ -1,41 +1,61 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-//namespace GameOfLife
-//{
-//    internal class Fox
-//    {
-//        public int Fullness { get; init; }
-//        public int PozX { get; init; }
-//        public int PozY { get; init; }
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+namespace GameOfLife
+{
+    internal class Fox
+    {
+        public int Fullness { get; init; }
+        public int PozX { get; init; }
+        public int PozY { get; init; }
+        public struct Point
+        {
+            public int X;
+            public int Y;
+            public Point(int x, int y)
+            {
+                X = x;
+                Y = y;
+            }
+        }
+        static string Breed(int pointX, int pointY)
+        {
+            List<Point> zeroPositions = new List<Point>();
+            int[,] mat = { { 1, 2, 3, 4, 5 }, { 4, 5, 6, 7, 8 }, { 1, 2, 3, 4, 5 } };
+            int height = mat.GetLength(0);
+            int width = mat.GetLength(1);
+            int left = Math.Max(pointX - 1, 0);
+            int right = Math.Min(pointX + 1, width);
+            int top = Math.Max(pointY - 1, 0);
+            int bottom = Math.Min(pointY + 1, height);
+            int foxneighbour = 0;
+            zeroPositions.Clear();
+            for (int y = top; y <= bottom; y++)
+            {
+                for (int x = left; x <= right; x++)
+                {
+                    if (mat[x, y] == 'F')
+                    {
+                        foxneighbour++;
+                    }
+                    else if (mat[x, y] == '#')
+                    {
+                        zeroPositions.Add(new Point(x, y));
+                    }
+                }
+            }
+            if  (zeroPositions.Count>0 && foxneighbour > 0)
+            {
+                return zeroPositions[1].X.ToString() +';'+ zeroPositions[1].Y.ToString();
+            }
+            else
+            {
+                return "NO";
+            }
+        }
 
-//        public Fox(int pozX, int poxY)
-//        {
-//            PozX = pozX;
-//            PozY = poxY;
-//        }
 
-//        public int NeighboorFox(int y, int x)
-//        {
-//            bool anotherfox = false;
-//            bool emptyplace = false;
-//            char[,] foxmap = new char[5, 5];
-//            int foxmapy = 0;
-//            int foxmapx = 0;
-//            for (int i = -2; i < 3; i++)
-//            {
-//                for (int j = -2; j < 3; j++)
-//                {
-//                    if (i != 0 || j != 0)
-//                    {
-//                            foxmap[foxmapy, foxmapx] += map[y - i, x - j];
-//                    }
-//                    foxmapx++;
-//                }
-//                foxmapy++;
-//            }
-//        }
-//    }
-//}
+    }
+}

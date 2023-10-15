@@ -8,24 +8,30 @@ namespace GameOfLife
 {
     internal class Map
     {
-        public string[,]? MapMatrix { get; init; }
-        public int row { get; init; }
-        public int col { get; init; }
+        const int row = 20;
+        const int col = 30;
+        public Grass[,] FieldMatrix { get; init; }
+        public Rabbit[,] RabbitMatrix { get; init; }
+        public Fox[,] FoxMatrix { get; init; }
+        public string[,] MapMatrix { get; init; }
 
-        public Map(int row = 20, int col = 30)
+        public Map()
         {
-            this.row = row++;
-            this.col = col++;
             MapMatrix = new string[row, col];
             for (int i = 0; i < row; i++)
             {
                 for (int j = 0; j < col; j++)
                 {
-                    if (i == 0 || i == row - 2 || j == 0 || j == col - 2)
-                    {
-                        MapMatrix[i, j] = "=";
-                    }
-                    else { MapMatrix[i, j] = "#"; }
+                    MapMatrix[i, j] = "_";
+                }
+            }
+
+            FieldMatrix = new Grass[row, col];
+            for (int i = 0; i < row; i++)
+            {
+                for (int j = 0; j < col; j++)
+                {
+                    FieldMatrix[i, j] = new Grass(); 
                 }
             }
         }
@@ -41,7 +47,5 @@ namespace GameOfLife
                 Console.WriteLine();
             }
         }
-
-
     }
 }
