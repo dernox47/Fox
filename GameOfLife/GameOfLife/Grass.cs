@@ -25,7 +25,7 @@ namespace GameOfLife
 
         public Grass()
         {
-            
+            Size = 0;
         }
 
         public void Growth()

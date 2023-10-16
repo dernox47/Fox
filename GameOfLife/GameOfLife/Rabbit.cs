@@ -8,6 +8,8 @@ namespace GameOfLife
 {
     internal class Rabbit
     {
+        static Random r = new Random();
+        
         const int row = 20;
         const int col = 30;
 
@@ -34,13 +36,21 @@ namespace GameOfLife
 
         public Rabbit(int posX, int posY, string[,] map)
         {
-            Random rnd = new Random();
-
             this.posX = posX;
             this.posY = posY;
             Map = map;
 
-            fullness = rnd.Next(0, 6);
+            fullness = r.Next(0, 6);
+        }
+
+        public void Scan()
+        {
+
+        }
+
+        public void Move()
+        {
+
         }
 
         public void Eat(Grass grass)
