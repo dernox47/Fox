@@ -12,8 +12,9 @@ namespace GameOfLife
         
         const int row = 20;
         const int col = 30;
+        public int value = 3;
 
-        public string[,] Map { get; init; }
+        public string[,] Map { get; set; }
 
         public int posX { get; init; }
         public int posY { get; init; }
@@ -34,13 +35,17 @@ namespace GameOfLife
         public bool Hungry => Fullness < 5;
         
 
-        public Rabbit(int posX, int posY, string[,] map)
+        public Rabbit(int posX, int posY)
         {
             this.posX = posX;
             this.posY = posY;
-            Map = map;
 
             fullness = r.Next(0, 6);
+        }
+
+        public void GetMap(string[,] map)
+        {
+            Map = map;
         }
 
         public void Scan()

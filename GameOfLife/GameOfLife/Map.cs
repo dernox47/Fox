@@ -59,7 +59,7 @@ namespace GameOfLife
 
                 if (!usedCoordinates.Contains(coordinates))
                 {
-                    rabbitList.Add(new Rabbit(x, y, MapMatrix));
+                    rabbitList.Add(new Rabbit(x, y));
                     usedCoordinates.Add(coordinates);
                 }
             }
@@ -86,6 +86,19 @@ namespace GameOfLife
             }
 
             return foxList;
+        }
+
+        public void GenerateMap()
+        {
+            foreach (var rabbit in RabbitList)
+            {
+                MapMatrix[rabbit.posX, rabbit.posY] = "N";
+            }
+
+            foreach (var fox in FoxList)
+            {
+                MapMatrix[fox.PozX, fox.PozY] = "R";
+            }
         }
 
         public void Draw()
