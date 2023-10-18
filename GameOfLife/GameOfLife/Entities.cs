@@ -9,8 +9,8 @@ namespace GameOfLife
     internal class Entities
     {
         static Random r = new Random();
-        const int row = 20;
-        const int col = 30;
+        const int row = 10; //Pálya magassága
+        const int col = 10; //Pálya szélessége
 
         public List<Grass> GrassList { get; init; }
         public List<Rabbit> RabbitList { get; init; }
@@ -28,9 +28,12 @@ namespace GameOfLife
         {
             List<Grass> grassList = new List<Grass>();
 
-            for (int i = 0; i < row * col; i++)
+            for (int i = 0; i < row; i++)
             {
-                grassList.Add(new Grass());
+                for (int j = 0; j < col; j++)
+                {
+                    grassList.Add(new Grass(i, j));
+                }
             }
 
             return grassList;

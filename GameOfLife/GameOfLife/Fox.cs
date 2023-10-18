@@ -9,8 +9,8 @@ namespace GameOfLife
     {
         static Random r = new Random();
 
-        const int row = 20;
-        const int col = 30;
+        const int row = 10; //Pálya magassága
+        const int col = 10; //Pálya szélessége
         public int value = 3;
 
         public int posX { get; init; }

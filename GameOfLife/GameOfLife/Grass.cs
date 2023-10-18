@@ -8,8 +8,8 @@ namespace GameOfLife
 {
     internal class Grass
     {
-        const int row = 20;
-        const int col = 30;
+        const int row = 10; //Pálya magassága
+        const int col = 10; //Pálya szélessége
         private int size;
         public int posX { get; init; }
         public int posY { get; init; }

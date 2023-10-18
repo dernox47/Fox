@@ -9,11 +9,11 @@ namespace GameOfLife
     internal class Map
     {
         static Random r = new Random();
-        const int row = 20;
-        const int col = 30;
+        const int row = 10; //Pálya magassága
+        const int col = 10; //Pálya szélessége
 
         public Entities entities = new Entities();
-        public string[,] Map { get; set; } = new string[row, col];
+        public string[,] MapMatrix { get; set; } = new string[row, col];
 
         public Map()
         {
@@ -23,51 +23,65 @@ namespace GameOfLife
         //Szöveges mátrix generálása
         public void Generate()
         {
-            foreach (var rabbit in entities.RabbitList)
-            {
-                Map[rabbit.posY, rabbit.posX] = "N";
-            }
-
-            foreach (var fox in entities.FoxList)
-            {
-                Map[fox.posY, fox.posX] = "R";
-            }
-
             for (int i = 0; i < row; i++)
             {
                 for (int j = 0; j < col; j++)
                 {
-                    Map[i, j] = ".";
+                    MapMatrix[i, j] = "_";
                 }
             }
-        }
-
-        public void Update()
-        {
             foreach (var rabbit in entities.RabbitList)
             {
-                Map[rabbit.posY, rabbit.posX] = "N";
+                MapMatrix[rabbit.posY, rabbit.posX] = "N";
             }
 
             foreach (var fox in entities.FoxList)
             {
-                Map[fox.posY, fox.posX] = "R";
+                MapMatrix[fox.posY, fox.posX] = "R";
             }
 
+        }
+
+        //Szöveges mátrix frissítése a listák változása alapján
+        public void Update()
+        {
             foreach (var grass in entities.GrassList)
             {
                 if (grass.Size == 0)
                 {
-                    Map[grass.posY, grass.posX] = ".";
+                    MapMatrix[grass.posY, grass.posX] = "_";
                 }
                 else if (grass.Size == 1)
                 {
-                    Map[grass.posY, grass.posX] = "-";
+                    MapMatrix[grass.posY, grass.posX] = "~";
                 }
                 else
                 {
-                    Map[grass.posY, grass.posX] = "#";
+                    MapMatrix[grass.posY, grass.posX] = "#";
                 }
+            }
+            foreach (var rabbit in entities.RabbitList)
+            {
+                MapMatrix[rabbit.posY, rabbit.posX] = "N";
+            }
+
+            foreach (var fox in entities.FoxList)
+            {
+                MapMatrix[fox.posY, fox.posX] = "R";
+            }
+        }
+
+        //A környezetet átadja a nyulaknak és a rókáknak
+        public void GiveSurroundingsToEntities()
+        {
+            foreach (var rabbit in entities.RabbitList)
+            {
+                rabbit.GetSurroundings(MapMatrix, entities);
+            }
+
+            foreach (var fox in entities.FoxList)
+            {
+                //PATO: Fox Class GetSurroundings metódusát ide!
             }
         }
 
@@ -77,7 +91,7 @@ namespace GameOfLife
             {
                 for (int j = 0; j < col; j++)
                 {
-                    Console.Write(Map[i, j]);
+                    Console.Write(MapMatrix[i, j]);
                 }
                 Console.WriteLine();
             }
