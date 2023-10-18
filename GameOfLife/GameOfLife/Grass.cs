@@ -11,6 +11,8 @@ namespace GameOfLife
         const int row = 20;
         const int col = 30;
         private int size;
+        public int posX { get; init; }
+        public int posY { get; init; }
 
         public int Size
         {
@@ -23,21 +25,23 @@ namespace GameOfLife
             }
         }
 
-        public Grass()
+        public Grass(int posX, int posY)
         {
             Size = 0;
+            this.posX = posX;
+            this.posY = posY;
         }
 
-        public void Growth()
-        {
-            for (int i = 0; i < ; i++)
-            {
-                for (int j = 0; j < ; j++)
-                {
-                    map.FieldMatrix[i, j] += 1;
-                }
-            }
-        }
+        //public void Growth()
+        //{
+        //    for (int i = 0; i < ; i++)
+        //    {
+        //        for (int j = 0; j < ; j++)
+        //        {
+        //            map.FieldMatrix[i, j] += 1;
+        //        }
+        //    }
+        //}
 
         public void Eaten()
         {

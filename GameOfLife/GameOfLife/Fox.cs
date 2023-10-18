@@ -7,9 +7,38 @@ namespace GameOfLife
 {
     internal class Fox
     {
-        public int Fullness { get; init; }
-        public int PozX { get; init; }
-        public int PozY { get; init; }
+        static Random r = new Random();
+
+        const int row = 20;
+        const int col = 30;
+        public int value = 3;
+
+        public int posX { get; init; }
+        public int posY { get; init; }
+
+        private int fullness;
+        public int Fullness
+        {
+            get { return fullness; }
+            set
+            {
+                if (value < 0) fullness = 0;
+                else if (value > 10) fullness = 10;
+                else fullness = value;
+            }
+        }
+
+        public bool Alive => Fullness > 0;
+        public bool Hungry => Fullness < 10;
+
+        public Fox(int posX, int posY)
+        {
+            this.posX = posX;
+            this.posY = posY;
+
+            Fullness = r.Next(0, 11);
+        }
+
         public struct Point
         {
             public int X;

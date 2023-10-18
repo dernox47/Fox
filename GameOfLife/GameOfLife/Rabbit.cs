@@ -14,7 +14,8 @@ namespace GameOfLife
         const int col = 30;
         public int value = 3;
 
-        public string[,] Map { get; set; }
+        public string[,] Map { get; set; } = new string[row, col];
+        public Entities Entities { get; set; } 
 
         public int posX { get; init; }
         public int posY { get; init; }
@@ -40,12 +41,13 @@ namespace GameOfLife
             this.posX = posX;
             this.posY = posY;
 
-            fullness = r.Next(0, 6);
+            Fullness = r.Next(0, 6);
         }
 
-        public void GetMap(string[,] map)
+        public void GetSurroundings(string[,] map, Entities entities)
         {
             Map = map;
+            Entities = entities;
         }
 
         public void Scan()
@@ -64,14 +66,9 @@ namespace GameOfLife
             grass.Eaten();
         }
 
-        public void Breed()
+        public bool CanReproduce()
         {
-            if (GetNeighbors().Keys.Contains("N") && GetNeighbors().Keys.Contains("F"))
-            {
-                int i = GetNeighbors()["F"][0];
-                int j = GetNeighbors()["F"][1];
-                Map[i, j] = 
-            }
+            return GetNeighbors().Keys.Contains("N") && GetNeighbors().Keys.Contains("F");
         }
 
         public Dictionary<string, int[]> GetNeighbors()

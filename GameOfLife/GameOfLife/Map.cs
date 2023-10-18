@@ -9,95 +9,65 @@ namespace GameOfLife
     internal class Map
     {
         static Random r = new Random();
-
         const int row = 20;
         const int col = 30;
-        public List<Grass> GrassList { get; init; }
-        public List<Rabbit> RabbitList { get; init; }
-        public List<Fox> FoxList { get; init; }
-        public string[,] MapMatrix { get; init; }
+
+        public Entities entities = new Entities();
+        public string[,] Map { get; set; } = new string[row, col];
 
         public Map()
         {
-            GrassList = GenerateGrassList();
-            RabbitList = GenerateRabbitList();
-            FoxList = GenerateFoxList();
-            
-            MapMatrix = new string[row, col];
+            Generate();
+        }
+
+        //Szöveges mátrix generálása
+        public void Generate()
+        {
+            foreach (var rabbit in entities.RabbitList)
+            {
+                Map[rabbit.posY, rabbit.posX] = "N";
+            }
+
+            foreach (var fox in entities.FoxList)
+            {
+                Map[fox.posY, fox.posX] = "R";
+            }
+
             for (int i = 0; i < row; i++)
             {
                 for (int j = 0; j < col; j++)
                 {
-                    MapMatrix[i, j] = "_";
+                    Map[i, j] = ".";
                 }
             }
         }
 
-        public List<Grass> GenerateGrassList()
+        public void Update()
         {
-            List<Grass> grassList = new List<Grass>();
-
-            for (int i = 0; i < row * col; i++)
+            foreach (var rabbit in entities.RabbitList)
             {
-                grassList.Add(new Grass());
+                Map[rabbit.posY, rabbit.posX] = "N";
             }
 
-            return grassList;
-        }
-
-        private static HashSet<(int, int)> usedCoordinates = new HashSet<(int, int)>();
-        public List<Rabbit> GenerateRabbitList()
-        {
-            List<Rabbit> rabbitList = new List<Rabbit>();
-            
-            while (rabbitList.Count < 5)
+            foreach (var fox in entities.FoxList)
             {
-                int x = r.Next(0, col);
-                int y = r.Next(0, row);
+                Map[fox.posY, fox.posX] = "R";
+            }
 
-                var coordinates = (x, y);
-
-                if (!usedCoordinates.Contains(coordinates))
+            foreach (var grass in entities.GrassList)
+            {
+                if (grass.Size == 0)
                 {
-                    rabbitList.Add(new Rabbit(x, y));
-                    usedCoordinates.Add(coordinates);
+                    Map[grass.posY, grass.posX] = ".";
                 }
-            }
-
-            return rabbitList;
-        }
-
-        public List<Fox> GenerateFoxList()
-        {
-            List<Fox> foxList = new List<Fox>();
-
-            while (foxList.Count < 4)
-            {
-                int x = r.Next(0, col);
-                int y = r.Next(0, row);
-
-                var coordinates = (x, y);
-
-                if (!usedCoordinates.Contains(coordinates))
+                else if (grass.Size == 1)
                 {
-                    foxList.Add(new Fox());
-                    usedCoordinates.Add(coordinates);
+                    Map[grass.posY, grass.posX] = "-";
                 }
-            }
-
-            return foxList;
-        }
-
-        public void GenerateMap()
-        {
-            foreach (var rabbit in RabbitList)
-            {
-                MapMatrix[rabbit.posX, rabbit.posY] = "N";
-            }
-
-            foreach (var fox in FoxList)
-            {
-                MapMatrix[fox.PozX, fox.PozY] = "R";
+                else
+                {
+                    Map[grass.posY, grass.posX] = "#";
+                }
             }
         }
 
@@ -107,7 +77,7 @@ namespace GameOfLife
             {
                 for (int j = 0; j < col; j++)
                 {
-                    Console.Write(MapMatrix[i, j]);
+                    Console.Write(Map[i, j]);
                 }
                 Console.WriteLine();
             }
