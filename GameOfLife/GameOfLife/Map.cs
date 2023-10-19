@@ -18,6 +18,7 @@ namespace GameOfLife
         public Map()
         {
             Generate();
+            GiveSurroundingsToEntities(); //Szimulációba kell majd
         }
 
         //Szöveges mátrix generálása

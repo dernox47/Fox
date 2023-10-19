@@ -10,16 +10,28 @@ namespace GameOfLife
     {
         public int maxTurns = 50;
         public int currentTurn = 0;
-        public Map Map { get; init; }
+        public Map map { get; init; }
 
         public Simulation()
         {
-            Map = new Map();
+            
         }
 
         public void Start()
         {
 
+        }
+
+        public void DoEntityTurns()
+        {
+            foreach (var rabbit in map.entities.RabbitList)
+            {
+                rabbit.Turn(map);
+            }
+
+            //PATO: Rókák köre
+
+            //GEDEON: Füvek köre (csak növés, ha nem áll rajta nyúl)
         }
     }
 }

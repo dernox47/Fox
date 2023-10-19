@@ -14,6 +14,8 @@ namespace GameOfLife
         public int posX { get; init; }
         public int posY { get; init; }
 
+        //mező: maximum növés 2 (0 -> 1, 1 -> 2) (?)
+
         public int Size
         {
             get { return size; }
@@ -32,16 +34,10 @@ namespace GameOfLife
             this.posY = posY;
         }
 
-        //public void Growth()
-        //{
-        //    for (int i = 0; i < ; i++)
-        //    {
-        //        for (int j = 0; j < ; j++)
-        //        {
-        //            map.FieldMatrix[i, j] += 1;
-        //        }
-        //    }
-        //}
+        public void Growth()
+        {
+            
+        }
 
         public void Eaten()
         {
