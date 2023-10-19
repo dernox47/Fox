@@ -49,7 +49,9 @@ namespace GameOfLife
         public bool Alive => Fullness > 0; //Ha 0 érték alá esik a telítettsége, akkor meghal
         public bool Hungry => Fullness < 5; //Ha 5 érték alatt van a telítettsége, akkor éhes
 
-        public Grass grass => GetGrass();
+        public Grass getGrass => GetGrass();
+        public Dictionary<int[], string> Neighbors;
+
 
         public Rabbit(int posX, int posY)
         {
@@ -67,22 +69,26 @@ namespace GameOfLife
 
         public void Turn(Map map)
         {
+            Neighbors = GetNeighbors();
+
             Move(); //elmozdul
 
             if (CanEat()) Eat(); //eszik, ha van lehetőség rá
 
-            if (CanReproduce()) Reproduce(map); //szaporodik, ha van lehetőség rá
+            //if (CanReproduce()) Reproduce(map); //szaporodik, ha van lehetőség rá
 
             if (!Alive) Die(map); //meghal, ha a telítettsége 0 érték alá csökken
 
             Fullness--; //kör végén csökken 1-gyel a telítettsége
+
+            LastReproduction++; //kör végén növeli, hogy hány köre szaporodott utoljára
         }
 
         public void Move()
         {
-            int randomPos = r.Next(0, GetNeighbors().Count);
-            posX = GetNeighbors().ElementAt(randomPos).Key[0];
-            posY = GetNeighbors().ElementAt(randomPos).Key[1];
+            int randomPos = r.Next(0, Neighbors.Count);
+            posX = Neighbors.ElementAt(randomPos).Key[1];
+            posY = Neighbors.ElementAt(randomPos).Key[0];
         }
 
         public Grass GetGrass()
@@ -109,20 +115,22 @@ namespace GameOfLife
         //Tud-e a nyúl szaporodni (nincs mellette róka, de van mellette nyúl és szabad hely)
         public bool CanReproduce()
         {
-            return GetNeighbors().ContainsValue("N") && 
-                GetNeighbors().ContainsValue("F") && 
-                !GetNeighbors().ContainsValue("R") && 
+            return Neighbors.ContainsValue("N") &&
+                Neighbors.ContainsValue("F") && 
+                !Neighbors.ContainsValue("R") && 
                 lastReproduction == maxReproductionCD;
         }
 
         //Szaporodik, hozzáadja a példányt a Map osztályban lévő Entities osztály segítségével a listájához
         public void Reproduce(Map map)
         {
-            int randomPos = r.Next(0, GetNeighbors().Count);
+            int randomPos = r.Next(0, Neighbors.Count);
 
-            Rabbit newRabbit = new Rabbit(GetNeighbors().ElementAt(randomPos).Key[0], GetNeighbors().ElementAt(randomPos).Key[1]);
+            Rabbit newRabbit = new Rabbit(Neighbors.ElementAt(randomPos).Key[1], Neighbors.ElementAt(randomPos).Key[0]);
 
             map.entities.RabbitList.Add(newRabbit);
+
+            lastReproduction = 0;
         }
 
         //Egy szótárba menti a körülötte lévő mezőket az alábbi formában [posX, posY] => "élőlény"

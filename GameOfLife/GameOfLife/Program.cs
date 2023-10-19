@@ -1,8 +1,7 @@
 ﻿using GameOfLife;
 
-Map map = new Map();
+Simulation simulation = new Simulation();
 
-
-map.Draw();
+simulation.Start();
 
 Console.WriteLine("asd");
