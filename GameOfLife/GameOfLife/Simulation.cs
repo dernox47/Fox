@@ -58,7 +58,10 @@ namespace GameOfLife
 
             //PATO: Rókák köre
 
-            //GEDEON: Füvek köre (csak növés, ha nem áll rajta nyúl)
+            foreach (var grass in map.entities.GrassList.ToList())
+            {
+                grass.Turn();
+            }
         }
 
         public bool CheckGameOver()
