@@ -42,5 +42,10 @@ namespace GameOfLife
             Size++;
         }
 
+        public void Eaten()
+        {
+            Size = 0;
+        }
+
     }
 }
