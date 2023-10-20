@@ -12,5 +12,17 @@ namespace GameOfLife
         public int posY { get; init; }
 
         //mező: maximum növés 2 (0 -> 1, 1 -> 2) (?)
+        private int size;
+        public int Size
+        {
+            get { return size; }
+            set 
+            {
+                if (value < 0) size = 0;
+                else if (value > 2) size = 2;
+                else size = value;
+            }
+    }
+
     }
 }
