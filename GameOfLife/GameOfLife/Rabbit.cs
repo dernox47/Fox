@@ -77,7 +77,7 @@ namespace GameOfLife
 
             if (CanReproduce()) Reproduce(map); //szaporodik, ha van lehetőség rá
 
-            //if (!Alive) Die(map); //Meghal, ha a telítettsége 0 érték alá csökken
+            if (!Alive) Die(map); //Meghal, ha a telítettsége 0 érték alá csökken
 
             Fullness--; //Kör végén csökken 1-gyel a telítettsége
 
@@ -119,7 +119,6 @@ namespace GameOfLife
                     }
                 }
             }
-            
         }
 
         public Grass GetGrass() //A pocíciójában lévő füvet adja vissza

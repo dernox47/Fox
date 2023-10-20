@@ -58,7 +58,7 @@ namespace GameOfLife
                 }
                 else
                 {
-                    MapMatrix[grass.posY, grass.posX] = "#";
+                    MapMatrix[grass.posY, grass.posX] = "-";
                 }
             }
             foreach (var rabbit in entities.RabbitList)
@@ -82,7 +82,7 @@ namespace GameOfLife
 
             foreach (var fox in entities.FoxList)
             {
-                //PATO: Fox Class GetSurroundings metódusát ide!
+                fox.GetSurroundings(MapMatrix, entities);
             }
         }
 

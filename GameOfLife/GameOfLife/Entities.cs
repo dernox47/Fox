@@ -44,7 +44,7 @@ namespace GameOfLife
         {
             List<Rabbit> rabbitList = new List<Rabbit>();
 
-            while (rabbitList.Count < 2)
+            while (rabbitList.Count < 5)
             {
                 int x = r.Next(0, col);
                 int y = r.Next(0, row);
@@ -65,7 +65,7 @@ namespace GameOfLife
         {
             List<Fox> foxList = new List<Fox>();
 
-            while (foxList.Count < 1)
+            while (foxList.Count < 4)
             {
                 int x = r.Next(0, col);
                 int y = r.Next(0, row);

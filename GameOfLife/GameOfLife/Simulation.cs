@@ -30,7 +30,6 @@ namespace GameOfLife
 
                 DoEntityTurns();
                 map.Update();
-                map.GiveSurroundingsToEntities();
 
                 map.Draw();
 
@@ -53,13 +52,22 @@ namespace GameOfLife
         {
             foreach (var rabbit in map.entities.RabbitList.ToList())
             {
+                map.GiveSurroundingsToEntities();
+
                 rabbit.Turn(map);
             }
 
-            //PATO: Rókák köre
+            foreach (var fox in map.entities.FoxList.ToList())
+            {
+                map.GiveSurroundingsToEntities();
+
+                fox.Turn(map);
+            }
 
             foreach (var grass in map.entities.GrassList.ToList())
             {
+                map.GiveSurroundingsToEntities();
+
                 grass.Turn();
             }
         }
