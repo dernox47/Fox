@@ -12,6 +12,7 @@ namespace GameOfLife
         public int posY { get; init; }
 
         //mező: maximum növés 2 (0 -> 1, 1 -> 2) (?)
+        
         private int size;
         public int Size
         {
@@ -22,7 +23,14 @@ namespace GameOfLife
                 else if (value > 2) size = 2;
                 else size = value;
             }
-    }
+        }
+        
+        public Grass(int posX, int posY)
+        {
+        Size = 0;
+        this.posX = posX;
+        this.posY = posY;
+        }
 
     }
 }
