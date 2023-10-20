@@ -27,9 +27,14 @@ namespace GameOfLife
         
         public Grass(int posX, int posY)
         {
-        Size = 0;
-        this.posX = posX;
-        this.posY = posY;
+            Size = 0;
+            this.posX = posX;
+            this.posY = posY;
+        }
+
+        public void Turn()
+        {
+            Growth();
         }
 
     }
