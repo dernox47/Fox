@@ -37,5 +37,10 @@ namespace GameOfLife
             Growth();
         }
 
+        public void Growth()
+        {
+            Size++;
+        }
+
     }
 }
