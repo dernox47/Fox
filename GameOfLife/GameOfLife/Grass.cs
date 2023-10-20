@@ -8,40 +8,9 @@ namespace GameOfLife
 {
     internal class Grass
     {
-        const int row = 10; //Pálya magassága
-        const int col = 10; //Pálya szélessége
-        private int size;
         public int posX { get; init; }
         public int posY { get; init; }
 
         //mező: maximum növés 2 (0 -> 1, 1 -> 2) (?)
-
-        public int Size
-        {
-            get { return size; }
-            set 
-            {
-                if (value < 0) size = 0;
-                else if (value > 2) size = 2;
-                else size = value;
-            }
-        }
-
-        public Grass(int posX, int posY)
-        {
-            Size = 0;
-            this.posX = posX;
-            this.posY = posY;
-        }
-
-        public void Growth()
-        {
-            
-        }
-
-        public void Eaten()
-        {
-            Size = 0;
-        }
     }
 }
