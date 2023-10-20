@@ -21,7 +21,7 @@ namespace GameOfLife
         public int posY { get; set; }
 
         static int maxReproductionCD = 3; //Maximum 3 körönként tud szaporodni
-        private int lastReproduction; //Hány köre szaporodott utoljára
+        private int lastReproduction = 0; //Hány köre szaporodott utoljára
         public int LastReproduction
         {
             get { return lastReproduction; }
@@ -49,8 +49,8 @@ namespace GameOfLife
         public bool Alive => Fullness > 0; //Ha 0 érték alá esik a telítettsége, akkor meghal
         public bool Hungry => Fullness < 5; //Ha 5 érték alatt van a telítettsége, akkor éhes
 
-        public Grass getGrass => GetGrass();
-        public Dictionary<int[], string> Neighbors;
+        public Grass getGrass => GetGrass(); //teszt
+        public Dictionary<int[], string> Neighbors; //teszt
 
 
         public Rabbit(int posX, int posY)
@@ -69,34 +69,65 @@ namespace GameOfLife
 
         public void Turn(Map map)
         {
-            Neighbors = GetNeighbors();
+            Neighbors = GetNeighbors(); //Minden kör elején megkapja a környezetét
 
-            Move(); //elmozdul
+            Move(); //Elmozdul
 
-            if (CanEat()) Eat(); //eszik, ha van lehetőség rá
+            if (CanEat()) Eat(); //Eszik, ha van lehetőség rá
 
-            //if (CanReproduce()) Reproduce(map); //szaporodik, ha van lehetőség rá
+            if (CanReproduce()) Reproduce(map); //szaporodik, ha van lehetőség rá
 
-            if (!Alive) Die(map); //meghal, ha a telítettsége 0 érték alá csökken
+            //if (!Alive) Die(map); //Meghal, ha a telítettsége 0 érték alá csökken
 
-            Fullness--; //kör végén csökken 1-gyel a telítettsége
+            Fullness--; //Kör végén csökken 1-gyel a telítettsége
 
-            LastReproduction++; //kör végén növeli, hogy hány köre szaporodott utoljára
+            LastReproduction++; //Kör végén növeli, hogy hány köre szaporodott utoljára
         }
 
-        public void Move()
+        public void Move() //Elmozdul a helyéről, előnyben részesíti a mezőt ahol a fű kifejlett (érték: 2) 
         {
-            int randomPos = r.Next(0, Neighbors.Count);
-            posX = Neighbors.ElementAt(randomPos).Key[1];
-            posY = Neighbors.ElementAt(randomPos).Key[0];
+            if (Neighbors.ContainsValue("F"))
+            {
+                foreach (var grass in Entities.GrassList)
+                {
+                    var fullGrassPositions = Neighbors.Where(kv =>
+                    {
+                        int[] neighborPosition = kv.Key;
+                        return neighborPosition[0] == grass.posY &&
+                                neighborPosition[1] == grass.posX &&
+                                grass.Size == 2;
+                    }).Select(kv => kv.Key).ToList();
+
+                    if (fullGrassPositions.Count > 0)
+                    {
+                        int randomIndex = r.Next(fullGrassPositions.Count);
+                        int[] selectedPosition = fullGrassPositions[randomIndex];
+                        posX = selectedPosition[1];
+                        posY = selectedPosition[0];
+                    }
+                    else
+                    {
+                        var grassPositions = Neighbors
+                            .Where(kv => kv.Value == "F")
+                            .Select(kv => kv.Key)
+                            .ToList();
+
+                        int randomIndex = r.Next(grassPositions.Count);
+                        int[] selectedPosition = grassPositions[randomIndex];
+                        posX = selectedPosition[1];
+                        posY = selectedPosition[0];
+                    }
+                }
+            }
+            
         }
 
-        public Grass GetGrass()
+        public Grass GetGrass() //A pocíciójában lévő füvet adja vissza
         {
             return Entities.GrassList.First(x => x.posX == posX && x.posY == posY);
         }
 
-        public bool CanEat()
+        public bool CanEat() //Ehető-e a fű, a mérete nagyobb 0-nál, meg tudja enni análkül, hogy a telítettségét meghaladná
         {
             return GetGrass().Size > 0 && Hungry && GetGrass().Size + Fullness !> maxFullness;
         }
@@ -107,12 +138,12 @@ namespace GameOfLife
             GetGrass().Eaten();
         }
 
-        public void Die(Map map)
+        public void Die(Map map) //Meghal, kiszedi a példányt a nyulak listájából
         {
             map.entities.RabbitList.Remove(map.entities.RabbitList.First(x => x.posX == posX && x.posY == posY));
         }
 
-        //Tud-e a nyúl szaporodni (nincs mellette róka, de van mellette nyúl és szabad hely)
+        //Tud-e szaporodni (nincs mellette róka, de van mellette nyúl és szabad hely)
         public bool CanReproduce()
         {
             return Neighbors.ContainsValue("N") &&
@@ -133,7 +164,7 @@ namespace GameOfLife
             lastReproduction = 0;
         }
 
-        //Egy szótárba menti a körülötte lévő mezőket az alábbi formában [posX, posY] => "élőlény"
+        //Egy szótárba menti a körülötte lévő mezőket az alábbi formában [posX, posY] => "milyen mező"
         public Dictionary<int[], string> GetNeighbors()
         {
             Dictionary<int[], string> result = new Dictionary<int[], string>();
